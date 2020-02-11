@@ -1,86 +1,27 @@
-// users
+//const axios = require('axios')
 
-//var users = ["https://robohash.org/abasperioresut.bmp?size=200x200&set=set1", "https://robohash.org/estdignissimostemporibus.bmp?size=200x200&set=set1", "https://robohash.org/liberoametillo.png?size=200x200&set=set1"]
-
-var users = [
-    {
-        "email": "bzumfelde0@time.com",
-        "first_name": "Benjamin",
-        "gender": "Male",
-        "id": 1,
-        "ip_address": null,
-        "last_name": "Zum Felde",
-        "photo": "https://robohash.org/abasperioresut.bmp?size=200x200&set=set1"
-    },
-    {
-        "email": "rdarrigrand1@soup.io",
-        "first_name": "Randolf",
-        "gender": "Male",
-        "id": 2,
-        "ip_address": null,
-        "last_name": "Darrigrand",
-        "photo": "https://robohash.org/estdignissimostemporibus.bmp?size=200x200&set=set1"
-    },
-    {
-        "email": "rgason2@qq.com",
-        "first_name": "Rad",
-        "gender": "Male",
-        "id": 3,
-        "ip_address": "20.63.40.137",
-        "last_name": "Gason",
-        "photo": "https://robohash.org/liberoametillo.png?size=200x200&set=set1"
-    },
-    {
-        "email": "lmonier3@blogspot.com",
-        "first_name": "Lynnet",
-        "gender": "Female",
-        "id": 4,
-        "ip_address": null,
-        "last_name": "Monier",
-        "photo": "https://robohash.org/consecteturquaeratrepudiandae.png?size=200x200&set=set1"
-    },
-    {
-        "email": "rhradsky4@cargocollective.com",
-        "first_name": "Ringo",
-        "gender": "Male",
-        "id": 5,
-        "ip_address": null,
-        "last_name": "Hradsky",
-        "photo": "https://robohash.org/explicaborationemagnam.png?size=200x200&set=set1"
-    },
-    {
-        "email": "jsissland5@amazonaws.com",
-        "first_name": "Jecho",
-        "gender": "Male",
-        "id": 6,
-        "ip_address": "122.53.56.15",
-        "last_name": "Sissland",
-        "photo": null
-    },
-    {
-        "email": "gkerford6@spiegel.de",
-        "first_name": "Gwynne",
-        "gender": "Female",
-        "id": 7,
-        "ip_address": null,
-        "last_name": "Kerford",
-        "photo": "https://robohash.org/aututvelit.jpg?size=200x200&set=set1"
-    },
-    {
-        "email": "taxtonne7@free.fr",
-        "first_name": "Tulley",
-        "gender": "Male",
-        "id": 8,
-        "ip_address": null,
-        "last_name": "Axtonne",
-        "photo": "https://robohash.org/suscipitreiciendisa.png?size=200x200&set=set1"
-    }
-]
+const url = 'http://localhost:3000'
+var users 
 
 var pos = 0
 var pos_perfil = 0
+var users = []
 
-const slideShow = () => {
+const getUsers = () =>{
+
+    return new Promise((resolve,reject) => {
+        fetch(`${url}/users`).then(res => {
+            res.json().then(resJ => {
+                resolve(resJ)
+            })
+        }).catch(err => reject(err))
+    })
+}
+
+const slideShow = async () => {
+
+    users = await getUsers()
+
     var img = document.getElementById("foto")
     if (users[pos].photo == null) img.src = "https://interfacetreinamentos.com.br/wp-content/uploads/2016/04/img-profile-default.jpg"
     else img.src = users[pos].photo
@@ -88,6 +29,7 @@ const slideShow = () => {
     nome.innerText = users[pos]["first_name"]
     sobrenome.innerText = users[pos]["last_name"]
     genero.innerText = users[pos]["gender"]
+    
 }
 
 const proximo = () => {
